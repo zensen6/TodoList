@@ -1,0 +1,13 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      enabled: true
+
+
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost/TodoListDB"
+    username: "root"
+    password: "Jh970506"
+    driver-class-name: com.mysql.cj.jdbc.Driver
