@@ -1,6 +1,7 @@
 package com.TodoList.TodoList.Service;
 
 
+import com.TodoList.TodoList.DTO.TodoRequestDTO;
 import com.TodoList.TodoList.Entity.Todo;
 import com.TodoList.TodoList.Repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,16 @@ public class TodoService implements TodoServiceImpl{
         List<Todo> TodoList = todoRepository.findAll();
         return TodoList;
     }
+
+    @Override
+    public Todo create(TodoRequestDTO todoRequestDTO){
+
+        Todo todo = todoRequestDTO.ConvertToEntity();
+        todoRepository.save(todo);
+        return todo;
+    }
+
+
+
 
 }
