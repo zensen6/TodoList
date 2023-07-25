@@ -23,5 +23,7 @@ public class Todo {
     @Column
     private String title;
 
+    @Column
+    private boolean done;
 
 }

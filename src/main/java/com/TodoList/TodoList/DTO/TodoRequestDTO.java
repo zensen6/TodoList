@@ -10,11 +10,26 @@ import lombok.*;
 @Builder
 public class TodoRequestDTO {
 
+    private Long id;
     private String title;
+    private boolean done;
 
 
-    public Todo ConvertToEntity(){
-        return Todo.builder().title(this.title).build();
+    public TodoRequestDTO(final Todo entity){
+        this.id = entity.getId();
+        this.title = entity.getTitle();
+        this.done = entity.isDone();
     }
+
+
+    public static Todo toEntity(final TodoRequestDTO dto){
+        return Todo.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .done(dto.isDone())
+                .build();
+    }
+
+
 
 }
