@@ -9,6 +9,6 @@ public interface TodoServiceImpl {
 
     List<Todo> findAllTodo();
 
-    List<Todo> create(TodoRequestDTO todoRequestDTO);
+    Todo create(TodoRequestDTO todoRequestDTO);
 
 }

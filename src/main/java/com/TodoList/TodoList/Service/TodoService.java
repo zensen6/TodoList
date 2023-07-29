@@ -25,11 +25,11 @@ public class TodoService implements TodoServiceImpl{
     }
 
     @Override
-    public List<Todo> create(TodoRequestDTO todoRequestDTO){
+    public Todo create(TodoRequestDTO todoRequestDTO){
 
         Todo todo = TodoRequestDTO.toEntity(todoRequestDTO);
         todoRepository.save(todo);
-        return todoRepository.findByUserId(todo.getId());
+        return todo;
     }
 
 

@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo,Long> {
-    @Query("select * from Todo t where t.userId = ?1")
-    List<Todo> findByUserId(Long id);
+
 }

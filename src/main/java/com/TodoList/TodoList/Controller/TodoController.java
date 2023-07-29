@@ -35,12 +35,11 @@ public class TodoController {
     @PostMapping("/create")
     public ResponseEntity<?> createTodo(@RequestBody TodoRequestDTO todoRequestDTO){
 
-        List<Todo> entities = todoService.create(todoRequestDTO);
-        List<TodoRequestDTO> dtos = entities.stream().map(TodoRequestDTO::new).toList();
+        Todo entity = todoService.create(todoRequestDTO);
+        //List<TodoRequestDTO> dtos = entities.stream().map(TodoRequestDTO::new).toList();
+        //ResponseDTO<TodoRequestDTO> response = ResponseDTO.<TodoRequestDTO>builder().data(dtos).build();
 
-        ResponseDTO<TodoRequestDTO> response = ResponseDTO.<TodoRequestDTO>builder().data(dtos).build();
-
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(entity);
     }
 
 }
