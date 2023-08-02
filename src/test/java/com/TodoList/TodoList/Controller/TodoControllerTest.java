@@ -20,7 +20,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -59,9 +61,6 @@ class TodoControllerTest {
         String title1 = "test1";
         boolean done1 = true;
 
-        String title2 = "test2";
-        boolean done2 = false;
-
         String url = "/create";
 
         //TodoRequestDTO dto = TodoRequestDTO.builder().title(title1).done(done1).build();
@@ -79,6 +78,69 @@ class TodoControllerTest {
         List<Todo> TodoList = todoRepository.findAll();
         assertThat(TodoList.size()).isEqualTo(1);
         assertThat(TodoList.get(0).getTitle()).isEqualTo("test1");
+    }
+
+    @Test
+    public void GetAllTest() throws Exception{
+
+
+        //given
+
+        String title1 = "test1";
+        boolean done1 = true;
+
+        String title2 = "test2";
+        boolean done2 = false;
+
+        String url = "/getall";
+
+        TodoRequestDTO dto1 = TodoRequestDTO.builder().title(title1).done(done1).build();
+        TodoRequestDTO dto2 = TodoRequestDTO.builder().title(title2).done(done2).build();
+
+        Todo todo1 = TodoRequestDTO.toEntity(dto1);
+        Todo todo2 = TodoRequestDTO.toEntity(dto2);
+        todoRepository.save(todo1);
+        todoRepository.save(todo2);
+
+        //when
+        final ResultActions results = mockMvc.perform(get(url)
+                .accept(MediaType.APPLICATION_JSON));
+
+
+        //then
+        results.andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value(title1))
+                .andExpect(jsonPath("$[0].done").value(true))
+                .andExpect(jsonPath("$[1].title").value(title2));
+
+
+    }
+
+    @Test
+    public void DeleteTest() throws Exception{
+
+        //given
+        String title1 = "test1";
+        boolean done1 = true;
+        TodoRequestDTO dto1 = TodoRequestDTO.builder().title(title1).done(done1).build();
+        Todo todo1 = TodoRequestDTO.toEntity(dto1);
+        todoRepository.save(todo1);
+
+        String url = "/delete";
+
+        //when
+        final ResultActions result = mockMvc.perform(post(url));
+        // java.lang.AssertionError: Status expected:<200> but was:<404>
+
+
+        result.andExpect(status().isOk());
+
+
+        List<Todo> TodoList = todoRepository.findAll();
+        assertThat(TodoList).isEmpty();
+        //then
+
+
     }
 
 

@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,9 +23,8 @@ public class TodoController {
     private final TodoServiceImpl todoService;
 
     @GetMapping("/getall")
-    public void getAllTodo(){
-        todoService.findAllTodo();
-        return;
+    public List<Todo> getAllTodo(){
+        return todoService.findAllTodo();
     }
 
 
@@ -40,6 +36,13 @@ public class TodoController {
         //ResponseDTO<TodoRequestDTO> response = ResponseDTO.<TodoRequestDTO>builder().data(dtos).build();
 
         return ResponseEntity.ok().body(entity);
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable String id){
+
+        todoService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }
