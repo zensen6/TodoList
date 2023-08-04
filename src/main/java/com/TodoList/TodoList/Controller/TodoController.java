@@ -38,8 +38,8 @@ public class TodoController {
         return ResponseEntity.ok().body(entity);
     }
 
-    @PostMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteTodo(@PathVariable String id){
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteTodo(@PathVariable long id){
 
         todoService.delete(id);
         return ResponseEntity.ok().build();

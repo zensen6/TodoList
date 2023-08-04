@@ -20,8 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -129,7 +128,9 @@ class TodoControllerTest {
         String url = "/delete";
 
         //when
-        final ResultActions result = mockMvc.perform(post(url));
+        final ResultActions result = mockMvc.perform(delete(url,todo1.getId()))
+                .andExpect(status().isOk());
+
         // java.lang.AssertionError: Status expected:<200> but was:<404>
 
 

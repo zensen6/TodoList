@@ -11,6 +11,6 @@ public interface TodoServiceImpl {
 
     Todo create(TodoRequestDTO todoRequestDTO);
 
-    void delete(String id);
+    void delete(Long id);
 
 }

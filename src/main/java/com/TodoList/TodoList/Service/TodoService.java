@@ -33,10 +33,9 @@ public class TodoService implements TodoServiceImpl{
     }
 
     @Override
-    public void delete(String id){
+    public void delete(Long id){
 
-        Long Id = Long.parseLong(id);
-        todoRepository.deleteById(Id);
+        todoRepository.deleteById(id);
         return;
 
     }
